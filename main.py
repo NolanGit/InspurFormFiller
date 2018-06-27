@@ -31,7 +31,10 @@ class AutoFiller(BaseWidget):
         self._type.add_item('1-功能性', 1)
         self._type.add_item('3-易用性', 3)
 
-        self._person = ControlText('责任者')
+        #self._person = ControlText('责任者')
+        self._person = ControlCombo('责任者')
+        self._person.add_item('刘宝祥')
+        self._person.add_item('石志伟')
 
         self._button = ControlButton('确定')
         self._button.value = self.__buttonAction
@@ -76,11 +79,11 @@ class AutoFiller(BaseWidget):
         key_actions.hold_time()
 
     def type_action(self):
-        if self._level.value == 1:
+        if self._type.value == 1:
             key_actions.num_to_key(1)
             key_actions.minus()
             key_actions.string_to_key('gongnengxing')
-        elif self._level.value == 3:
+        elif self._type.value == 3:
             key_actions.num_to_key(3)
             key_actions.minus()
             key_actions.string_to_key('yiyongxing')

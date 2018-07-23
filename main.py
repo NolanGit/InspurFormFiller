@@ -1,3 +1,4 @@
+import re
 import pyforms
 import key_actions
 from functools import reduce
@@ -11,15 +12,19 @@ from pypinyin import lazy_pinyin
 class AutoFiller(BaseWidget):
 
     def __init__(self):
-        super(AutoFiller, self).__init__('Auto filler')
+        super(AutoFiller, self).__init__('Auto Filler')
         self._project = ControlCombo('项目')
         self._project.add_item('后台')
         self._project.add_item('山东药监')
         self._project.add_item('沈阳药监')
+        self._project.add_item('重庆药监')
 
         self._product = ControlCombo('产品')
+        self._product.add_item('APP')
+        self._product.add_item('行政执法')
         self._product.add_item('食品日常检查')
         self._product.add_item('快速检验')
+        self._product.add_item('药品日常检查')
 
         self._level = ControlCombo('严重程度')
         self._level.add_item('3-平均', 3)
@@ -31,9 +36,9 @@ class AutoFiller(BaseWidget):
         self._type.add_item('1-功能性', 1)
         self._type.add_item('3-易用性', 3)
 
-        #self._person = ControlText('责任者')
         self._person = ControlCombo('责任者')
         self._person.add_item('刘宝祥')
+        self._person.add_item('厉见德')
         self._person.add_item('石志伟')
 
         self._button = ControlButton('确定')
@@ -45,18 +50,40 @@ class AutoFiller(BaseWidget):
         return a + b
 
     def project_action(self):
-        pinyin_list = lazy_pinyin(self._project.value)
-        pinyin = (reduce(self.add_str, pinyin_list))
-        key_actions.string_to_key(pinyin)
-        key_actions.space()
-        key_actions.hold_time()
+        length_of_letter = check(self._project.value)
+        if length_of_letter == 0:
+            pinyin_list = lazy_pinyin(self._project.value)
+            pinyin = (reduce(self.add_str, pinyin_list))
+            key_actions.string_to_key(pinyin)
+            key_actions.space()
+            key_actions.hold_time()
+        else:
+            letter_part = self._project.value[:length_of_letter]
+            chinese_part = self._project.value[length_of_letter:]
+            key_actions.caps()
+            key_actions.string_to_key(letter_part)
+            key_actions.caps()
+            key_actions.string_to_key(chinese_part)
+            key_actions.space()
+            key_actions.hold_time()
 
     def product_action(self):
-        pinyin_list = lazy_pinyin(self._product.value)
-        pinyin = (reduce(self.add_str, pinyin_list))
-        key_actions.string_to_key(pinyin)
-        key_actions.space()
-        key_actions.hold_time()
+        length_of_letter = check(self._product.value)
+        if length_of_letter == 0:
+            pinyin_list = lazy_pinyin(self._product.value)
+            pinyin = (reduce(self.add_str, pinyin_list))
+            key_actions.string_to_key(pinyin)
+            key_actions.space()
+            key_actions.hold_time()
+        else:
+            letter_part = self._product.value[:length_of_letter]
+            chinese_part = self._product.value[length_of_letter:]
+            key_actions.caps()
+            key_actions.string_to_key(letter_part)
+            key_actions.caps()
+            key_actions.string_to_key(chinese_part)
+            key_actions.space()
+            key_actions.hold_time()
 
     def level_action(self):
         if self._level.value == 1:
@@ -122,6 +149,12 @@ class AutoFiller(BaseWidget):
         key_actions.tab()
         key_actions.hold_time()
         self.person_action()
+
+
+def check(str):
+    my_re = re.compile(r'[A-Z]', re.S)
+    res = re.findall(my_re, str)
+    return len(res)
 
 if __name__ == "__main__":
     pyforms.start_app(AutoFiller)

@@ -54,10 +54,11 @@ N7 = 0x67
 N8 = 0x68
 N9 = 0x69
 TAB = 0x09
+DEL = 0x2E
 ALT = 0x12
 BACK = 0x08
 CTRL = 0x11
-DEL = 0x2E
+CAPS = 0x14
 MINUS = 0xBD
 SPACE = 0x20
 RIGHT = 0x27
@@ -181,3 +182,8 @@ def hold_time():
 def right():
     press_key(RIGHT)
     release_key(RIGHT)
+
+
+def caps():
+    press_key(CAPS)
+    release_key(CAPS)

@@ -63,8 +63,9 @@ class AutoFiller(BaseWidget):
             key_actions.caps()
             key_actions.string_to_key(letter_part)
             key_actions.caps()
-            key_actions.string_to_key(chinese_part)
-            key_actions.space()
+            if len(chinese_part):
+                key_actions.string_to_key(chinese_part)
+                key_actions.space()
             key_actions.hold_time()
 
     def product_action(self):
@@ -81,8 +82,9 @@ class AutoFiller(BaseWidget):
             key_actions.caps()
             key_actions.string_to_key(letter_part)
             key_actions.caps()
-            key_actions.string_to_key(chinese_part)
-            key_actions.space()
+            if len(chinese_part):
+                key_actions.string_to_key(chinese_part)
+                key_actions.space()
             key_actions.hold_time()
 
     def level_action(self):

@@ -22,6 +22,7 @@ class AutoFiller(BaseWidget):
         self._product = ControlCombo('产品')
         self._product.add_item('APP')
         self._product.add_item('行政执法')
+        self._product.add_item('GIAP审批')
         self._product.add_item('食品日常检查')
         self._product.add_item('快速检验')
         self._product.add_item('药品日常检查')
@@ -64,7 +65,9 @@ class AutoFiller(BaseWidget):
             key_actions.string_to_key(letter_part)
             key_actions.caps()
             if len(chinese_part):
-                key_actions.string_to_key(chinese_part)
+                pinyin_list = lazy_pinyin(chinese_part)
+                pinyin = (reduce(self.add_str, pinyin_list))
+                key_actions.string_to_key(pinyin)
                 key_actions.space()
             key_actions.hold_time()
 
@@ -83,7 +86,9 @@ class AutoFiller(BaseWidget):
             key_actions.string_to_key(letter_part)
             key_actions.caps()
             if len(chinese_part):
-                key_actions.string_to_key(chinese_part)
+                pinyin_list = lazy_pinyin(chinese_part)
+                pinyin = (reduce(self.add_str, pinyin_list))
+                key_actions.string_to_key(pinyin)
                 key_actions.space()
             key_actions.hold_time()
 

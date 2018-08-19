@@ -16,6 +16,7 @@ class AutoFiller(BaseWidget):
         self._project = ControlCombo('项目')
         self._project.add_item('后台')
         self._project.add_item('山东药监')
+        self._project.add_item('济南药监')
         self._project.add_item('沈阳药监')
         self._project.add_item('重庆药监')
 
@@ -26,6 +27,7 @@ class AutoFiller(BaseWidget):
         self._product.add_item('食品日常检查')
         self._product.add_item('快速检验')
         self._product.add_item('药品日常检查')
+        self._product.add_item('化妆品日常检查')
 
         self._level = ControlCombo('严重程度')
         self._level.add_item('3-平均', 3)
@@ -41,10 +43,13 @@ class AutoFiller(BaseWidget):
         self._person.add_item('刘宝祥')
         self._person.add_item('厉见德')
         self._person.add_item('石志伟')
+        self._person.add_item('周鹏')
+        self._person.add_item('王为选')
 
         self._button = ControlButton('确定')
         self._button.value = self.__buttonAction
 
+        self.set_margin(15)
         self.formset = [('_project', '_product'), ('_level', '_type'), ('_person', '_button')]
 
     def add_str(self, a, b):
@@ -141,6 +146,16 @@ class AutoFiller(BaseWidget):
 
     def __buttonAction(self):
         key_actions.alt_tab()
+        key_actions.tab()
+        key_actions.hold_time()
+        key_actions.tab()
+        key_actions.hold_time()
+        key_actions.tab()
+        key_actions.hold_time()
+        key_actions.tab()
+        key_actions.hold_time()
+        key_actions.tab()
+        key_actions.hold_time()
         self.project_action()
         key_actions.tab()
         key_actions.hold_time()

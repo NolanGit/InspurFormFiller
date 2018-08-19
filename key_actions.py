@@ -176,7 +176,7 @@ def space():
 
 
 def hold_time():
-    time.sleep(0.5)
+    time.sleep(0.3)
 
 
 def right():
